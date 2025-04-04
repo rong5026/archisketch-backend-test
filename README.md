@@ -3,6 +3,9 @@
  localhost:8080/
 ```
 
+## 깃허브 주소
+- https://github.com/rong5026/archisketch-backend-test
+
 ## 1. Health Check API
 서버 동작 여부를 확인하기 위한 API
 - **Endpoint**: `/health`
