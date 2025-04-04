@@ -2,6 +2,8 @@ package org.archisketchbackendtest.cylinder.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.archisketchbackendtest.cylinder.client.CylinderClient
+import org.archisketchbackendtest.cylinder.common.error.CylinderErrorCode
+import org.archisketchbackendtest.cylinder.common.error.CylinderException
 import org.archisketchbackendtest.cylinder.dto.response.CylinderApiResponse
 import org.archisketchbackendtest.cylinder.dto.response.CylinderResponse
 import org.archisketchbackendtest.cylinder.dto.response.EditorAsset
@@ -28,14 +30,13 @@ class CylinderService (
         try {
             return objectMapper.readValue(response, CylinderApiResponse::class.java)
         } catch (e: Exception) {
-            throw RuntimeException("응답 파싱 실패 - ${e.message}", e)
+            throw CylinderException(CylinderErrorCode.JSON_PARSE_ERROR)
         }
     }
 
     private fun validateCylinderResponse(name: String?, editorAsset: EditorAsset?) {
-
         if (name.isNullOrBlank() || editorAsset == null) {
-            throw IllegalArgumentException("필수 필드(name, editorAsset)가 비어있습니다")
+            throw CylinderException(CylinderErrorCode.MISSING_VALUE)
         }
     }
 }
